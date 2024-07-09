@@ -26,10 +26,7 @@ export class UserController {
 
   @Post('login')
   async login(@Body() loginDto: LoginDto): Promise<any> {
-    const user = await this.userService.findByPhone(loginDto.phone);
-    if (!user || user.password !== loginDto.password) {
-      throw new Error('Invalid credentials');
-    }
+    const user = await this.userService.signin(loginDto);
     return { user };
   }
 

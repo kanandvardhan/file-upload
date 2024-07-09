@@ -1,16 +1,23 @@
 import { createContext, useContext, useState } from "react";
+import {
+  getLocalStorageItem,
+  removeLocalStorageItem,
+  setLocalStorageItem,
+} from "../../utils/localstorage";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(getLocalStorageItem("user") || null);
 
   let signin = (data, callback) => {
-    setUser(user);
+    setLocalStorageItem("user", data);
+    setUser(data);
     callback();
   };
 
   let signout = (callback) => {
+    removeLocalStorageItem("user");
     setUser(null);
     callback();
   };

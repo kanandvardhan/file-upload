@@ -2,7 +2,14 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 
 const Layout = () => {
-  return <Outlet />;
+  return (
+    <>
+      <div>
+        <AuthStatus />
+      </div>
+      <Outlet />
+    </>
+  );
 };
 
 export default Layout;
@@ -16,8 +23,8 @@ function AuthStatus() {
   }
 
   return (
-    <p>
-      Welcome {auth.user}!{" "}
+    <p className="capitalize">
+      Welcome {auth.user.name}!{" "}
       <button
         onClick={() => {
           auth.signout(() => navigate("/"));
@@ -31,8 +38,4 @@ function AuthStatus() {
 
 export function PublicPage() {
   return <h3>Public</h3>;
-}
-
-export function ProtectedPage() {
-  return <h3>Protected</h3>;
 }
